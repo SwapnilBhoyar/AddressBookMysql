@@ -1,0 +1,204 @@
+UC1:
+mysql> CREATE DATABASE address_book_db;
+
+UC2:
+mysql> CREATE TABLE new_address_book (id int NOT NULL AUTO_INCREMENT, first_name varchar(255), last_name varchar(255), address varchar(255), city varchar(255), state varchar(255), zip int, phone_number long, email varchar(255), PRIMARY KEY (id));
+
+mysql> desc new_address_book;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id           | int(11)      | NO   | PRI | NULL    | auto_increment |
+| first_name   | varchar(255) | YES  |     | NULL    |                |
+| last_name    | varchar(255) | YES  |     | NULL    |                |
+| address      | varchar(255) | YES  |     | NULL    |                |
+| city         | varchar(255) | YES  |     | NULL    |                |
+| state        | varchar(255) | YES  |     | NULL    |                |
+| zip          | int(11)      | YES  |     | NULL    |                |
+| phone_number | mediumtext   | YES  |     | NULL    |                |
+| email        | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+
+UC3:
+INSERT INTO new_address_book (first_name, last_name, address, city, state, zip, phone_number, email) VALUES ("Swapnil", "Bhoyar", "camp", "pune", "maharashtra", 411001, 1234567890, "swapnil@gmail.com");
+
+mysql> INSERT INTO new_address_book (first_name, last_name, address, city, state, zip, phone_number, email) VALUES ("Himanshu", "Rane", "hadapsar", "pune", "maharashtra", 411568, 1235647890, "himanshu@gmail.com");
+
+mysql> INSERT INTO new_address_book (first_name, last_name, address, city, state, zip, phone_number, email) VALUES ("aditya", "Bhosale", "shradha nagar", "mumbai", "maharashtra", 781568, 1235547892, "aditya@gmail.com");
+
+mysql> INSERT INTO new_address_book (first_name, last_name, address, city, state, zip, phone_number, email) VALUES ("Shailendra", "Parab", "stavely road", "aurangabad", "maharashtra", 564568, 1237895892, "shailendra@gmail.com");
+
+mysql> SELECT * FROM new_address_book;
++----+------------+-----------+---------------+------------+-------------+--------+--------------+----------------------+
+| id | first_name | last_name | address       | city       | state       | zip    | phone_number | email                |
++----+------------+-----------+---------------+------------+-------------+--------+--------------+----------------------+
+|  1 | Swapnil    | Bhoyar    | camp          | pune       | maharashtra | 411001 | 1234567890   | swapnil@gmail.com    |
+|  2 | Himanshu   | Rane      | hadapsar      | pune       | maharashtra | 411568 | 1235647890   | himanshu@gmail.com   |
+|  3 | aditya     | Bhosale   | shradha nagar | mumbai     | maharashtra | 781568 | 1235547892   | aditya@gmail.com     |
+|  4 | Shailendra | Parab     | stavely road  | aurangabad | maharashtra | 564568 | 1237895892   | shailendra@gmail.com |
++----+------------+-----------+---------------+------------+-------------+--------+--------------+----------------------+
+
+UC4:
+mysql> UPDATE new_address_book SET email = "swapnil123@gmail.com" WHERE first_name = "swapnil";
+
+mysql> SELECT * FROM new_address_book;
++----+------------+-----------+---------------+------------+-------------+--------+--------------+----------------------+
+| id | first_name | last_name | address       | city       | state       | zip    | phone_number | email                |
++----+------------+-----------+---------------+------------+-------------+--------+--------------+----------------------+
+|  1 | Swapnil    | Bhoyar    | camp          | pune       | maharashtra | 411001 | 1234567890   | swapnil123@gmail.com |
+|  2 | Himanshu   | Rane      | hadapsar      | pune       | maharashtra | 411568 | 1235647890   | himanshu@gmail.com   |
+|  3 | aditya     | Bhosale   | shradha nagar | mumbai     | maharashtra | 781568 | 1235547892   | aditya@gmail.com     |
+|  4 | Shailendra | Parab     | stavely road  | aurangabad | maharashtra | 564568 | 1237895892   | shailendra@gmail.com |
++----+------------+-----------+---------------+------------+-------------+--------+--------------+----------------------+
+
+UC5:
+mysql> DELETE FROM new_address_book WHERE first_name = "shailendra";
+
+mysql> SELECT * FROM new_address_book;
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+
+| id | first_name | last_name | address       | city   | state       | zip    | phone_number | email                |
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+
+|  1 | Swapnil    | Bhoyar    | camp          | pune   | maharashtra | 411001 | 1234567890   | swapnil123@gmail.com |
+|  2 | Himanshu   | Rane      | hadapsar      | pune   | maharashtra | 411568 | 1235647890   | himanshu@gmail.com   |
+|  3 | aditya     | Bhosale   | shradha nagar | mumbai | maharashtra | 781568 | 1235547892   | aditya@gmail.com     |
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+
+
+UC6:
+mysql> SELECT first_name FROM new_address_book WHERE city = "pune";
++------------+
+| first_name |
++------------+
+| Swapnil    |
+| Himanshu   |
++------------+
+
+UC7:
+mysql> SELECT COUNT(id) AS NumberOfContact FROM new_address_book;
++-----------------+
+| NumberOfContact |
++-----------------+
+|               3 |
++-----------------+
+
+UC8:
+mysql> SELECT * FROM new_address_book WHERE city = "pune" ORDER BY first_name;
++----+------------+-----------+----------+------+-------------+--------+--------------+----------------------+
+| id | first_name | last_name | address  | city | state       | zip    | phone_number | email                |
++----+------------+-----------+----------+------+-------------+--------+--------------+----------------------+
+|  2 | Himanshu   | Rane      | hadapsar | pune | maharashtra | 411568 | 1235647890   | himanshu@gmail.com   |
+|  1 | Swapnil    | Bhoyar    | camp     | pune | maharashtra | 411001 | 1234567890   | swapnil123@gmail.com |
++----+------------+-----------+----------+------+-------------+--------+--------------+----------------------+
+
+UC9:
+mysql> UPDATE new_address_book SET address_book_name = "address_book_1", type = "friends" WHERE id = 1;
+
+mysql> UPDATE new_address_book SET address_book_name = "address_book_1", type = "friends" WHERE id = 2;
+
+mysql> UPDATE new_address_book SET address_book_name = "address_book_1", type = "family" WHERE id = 3;
+
+mysql> SELECT * FROM new_address_book;
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+-------------------+---------+
+| id | first_name | last_name | address       | city   | state       | zip    | phone_number | email                | address_book_name | type    |
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+-------------------+---------+
+|  1 | Swapnil    | Bhoyar    | camp          | pune   | maharashtra | 411001 | 1234567890   | swapnil123@gmail.com | address_book_1    | friends |
+|  2 | Himanshu   | Rane      | hadapsar      | pune   | maharashtra | 411568 | 1235647890   | himanshu@gmail.com   | address_book_1    | friends |
+|  3 | aditya     | Bhosale   | shradha nagar | mumbai | maharashtra | 781568 | 1235547892   | aditya@gmail.com     | address_book_1    | family  |
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+-------------------+---------+
+
+UC10:
+mysql> SELECT type, COUNT(first_name) FROM new_address_book GROUP BY type;
++---------+-------------------+
+| type    | COUNT(first_name) |
++---------+-------------------+
+| family  |                 1 |
+| friends |                 2 |
++---------+-------------------+
+
+UC11:
+mysql> INSERT INTO new_address_book (first_name, last_name, address, city, state, zip, phone_number, email, address_book_name, type) VALUES ("aditya", "Bhosale", "shradha nagar", "mumbai", "maharashtra", 781568, 1235547892, "aditya@gmail.com", "address_book_2", "friends");
+
+mysql> SELECT * FROM new_address_book;
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+-------------------+---------+
+| id | first_name | last_name | address       | city   | state       | zip    | phone_number | email                | address_book_name | type    |
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+-------------------+---------+
+|  1 | Swapnil    | Bhoyar    | camp          | pune   | maharashtra | 411001 | 1234567890   | swapnil123@gmail.com | address_book_1    | friends |
+|  2 | Himanshu   | Rane      | hadapsar      | pune   | maharashtra | 411568 | 1235647890   | himanshu@gmail.com   | address_book_1    | friends |
+|  3 | aditya     | Bhosale   | shradha nagar | mumbai | maharashtra | 781568 | 1235547892   | aditya@gmail.com     | address_book_1    | family  |
+|  5 | aditya     | Bhosale   | shradha nagar | mumbai | maharashtra | 781568 | 1235547892   | aditya@gmail.com     | address_book_2    | friends |
++----+------------+-----------+---------------+--------+-------------+--------+--------------+----------------------+-------------------+---------+
+
+UC12:
+mysql> CREATE TABLE People(id int NOT NULL AUTO_INCREMENT, first_name varchar(20), last_name varchar(20), phone_number long, email varchar(50), PRIMARY KEY(id));
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> CREATE TABLE Address(id int , address varchar(50), city varchar(20), state varchar(20), zip int, FOREIGN KEY(ID) REFERENCES People(id)); 
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> CREATE TABLE address_book(id int , address_book_name varchar(20), type varchar(20), FOREIGN KEY(id) REFERENCES People(id)); 
+Query OK, 0 rows affected (0.32 sec)
+
+UC13:
+mysql> CREATE TABLE People(id int NOT NULL AUTO_INCREMENT, first_name varchar(20), last_name varchar(20), phone_number long, email varchar(50), PRIMARY KEY(id));
+
+mysql> CREATE TABLE Address(id int , address varchar(50), city varchar(20), state varchar(20), zip int, FOREIGN KEY(id) REFERENCES People(id));
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> CREATE TABLE address_book(id int , address_book_name varchar(20), type varchar(20), FOREIGN KEY(id) REFERENCES People(id)); 
+Query OK, 0 rows affected (0.32 sec)
+
+UC13:
+
+mysql> SELECT first_name, last_name, city FROM Address INNER JOIN People ON Address.id = People.id WHERE city = "pune";
++------------+-----------+------+
+| first_name | last_name | city |
++------------+-----------+------+
+| swapnil    | bhoyar    | pune |
+| himanshu   | rane      | pune |
++------------+-----------+------+
+2 rows in set (0.02 sec)
+
+mysql> SELECT first_name, last_name, state FROM Address INNER JOIN People ON Address.id = People.id WHERE state = "maharashtra";
++------------+-----------+-------------+
+| first_name | last_name | state       |
++------------+-----------+-------------+
+| swapnil    | bhoyar    | maharashtra |
+| himanshu   | rane      | maharashtra |
+| aditya     | bhosale   | maharashtra |
++------------+-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(city),city FROM Address INNER JOIN People ON Address.id = People.id WHERE city = "pune" GROUP BY city;
++-------------+------+
+| COUNT(city) | city |
++-------------+------+
+|           2 | pune |
++-------------+------+
+1 row in set (0.03 sec)
+
+mysql> SELECT COUNT(state),state FROM Address INNER JOIN People ON Address.id = People.id WHERE state = "maharashtra" GROUP BY state;
++--------------+-------------+
+| COUNT(state) | state       |
++--------------+-------------+
+|            3 | maharashtra |
++--------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM People INNER JOIN Address ON Address.id = People.id WHERE city = "pune" ORDER BY first_name ASC;
++----+------------+-----------+--------------+--------------------+------+---------+------+-------------+--------+
+| id | first_name | last_name | phone_number | email              | id   | address | city | state       | zip    |
++----+------------+-----------+--------------+--------------------+------+---------+------+-------------+--------+
+|  2 | himanshu   | rane      | 7894545830   | himanshu@gmail.com |    2 | hadpsar | pune | maharashtra | 411568 |
+|  1 | swapnil    | bhoyar    | 7894561230   | swapnil@gmail.com  |    1 | camp    | pune | maharashtra | 411001 |
++----+------------+-----------+--------------+--------------------+------+---------+------+-------------+--------+
+2 rows in set (0.05 sec)
+
+mysql> SELECT count(type),type FROM address_book INNER JOIN People ON address_book.id = People.id WHERE type = "friends" GROUP BY type;
++-------------+---------+
+| count(type) | type    |
++-------------+---------+
+|           2 | friends |
++-------------+---------+
+1 row in set (0.00 sec)
+
+
+
